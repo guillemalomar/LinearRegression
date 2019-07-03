@@ -1,2 +1,2 @@
-# linear_regression
-a python implementation of linear regretion, for a ML course
+# Gradient Descent
+A python implementation of the Gradient Descent, for a ML course
