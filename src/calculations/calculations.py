@@ -1,13 +1,15 @@
+import logging
 import random
+
+from src.settings import step_size, max_iters, max_error
+from src.messages import MESSAGES
 
 
 def gradient_descent(input_data):
-    step_size = 0.001
     thetas = initialize_thetas(input_data[0])
+    logging.info(MESSAGES["Initial_thetas"].format(thetas))
     samples = len(input_data)
-    max_iters = 1000000
     iters = 0
-    max_error = 0.00000000000000000001
     c_error = 0.1
     new_thetas = []
     while iters < max_iters and max_error < c_error:
@@ -16,12 +18,12 @@ def gradient_descent(input_data):
         for ind, training_example in enumerate(input_data):
             cost = obtain_cost(training_example, thetas)
             new_thetas = obtain_new_thetas(new_thetas, cost, training_example, samples)
-        new_thetas, c_error = update_thetas(new_thetas, thetas, step_size)
+        new_thetas, c_error = update_thetas(new_thetas, thetas)
         thetas = list(new_thetas)
         new_thetas = []
         iters += 1
-    print("Iterations: {}".format(iters))
-    print("Result: {}".format(thetas))
+    logging.info(MESSAGES["Iterations"].format(iters))
+    logging.info(MESSAGES["Final_thetas"].format(thetas))
     return thetas
 
 
@@ -29,11 +31,10 @@ def initialize_thetas(input_example):
     thetas = []
     for i in range(0, len(input_example)):
         thetas.append(random.randint(0, 5))
-    print("Initial thetas: {}".format(thetas))
     return thetas
 
 
-def update_thetas(new_thetas, thetas, step_size):
+def update_thetas(new_thetas, thetas):
     updated_thetas = []
     total_error = 0
     for ind, theta in enumerate(thetas):
@@ -73,7 +74,6 @@ def obtain_output_from_input(desired_input, trained_model):
     for ind, val in enumerate(desired_input):
         total += val * trained_model[ind + 1]
     result.append(total)
-    print("Result from input: {}".format(result))
     return result
 
 
@@ -81,5 +81,5 @@ def obtain_random_input(input_data):
     input_value = []
     for _ in range(0, len(input_data)-1):
         input_value.append(random.uniform(1.0, 4.0))
-    print("Values to analyze: {}".format(input_value))
+    logging.info(MESSAGES["Values_analyze"].format(input_value))
     return input_value
