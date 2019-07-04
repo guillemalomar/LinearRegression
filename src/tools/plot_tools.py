@@ -43,8 +43,8 @@ def plot_points(title, training_data, found_result, calculated_value):
         print("plot not ready")
         return
 
-    plt.title(title.split('/')[2].split('.')[0])
+    plt.title(title.split('/')[1].split('.')[0])
 
     plt.legend()
 
-    plt.savefig("../output/{}_output.png".format(title.split('/')[2].split('.')[0]))
+    plt.savefig("output/{}_output.png".format(title.split('/')[1].split('.')[0]))
