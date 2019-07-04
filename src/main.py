@@ -3,7 +3,10 @@ import logging
 import sys
 
 from src.calculations.calculations import gradient_descent
+from src.calculations.calculations import obtain_output_from_input
+from src.calculations.calculations import obtain_random_input
 from src.tools.plot_tools import plot_points
+from src.tools.file_tools import obtain_input
 
 
 def args_handler(argv):
@@ -31,8 +34,12 @@ def _main(argv):
         title = args.file
     else:
         title = '../input/2D.csv'
-    input_data, result = gradient_descent(title)
-    plot_points(title, input_data, result)
+
+    input_data = obtain_input(title)
+    input_value = obtain_random_input(input_data[0])
+    result = gradient_descent(input_data)
+    calculated_value = obtain_output_from_input(input_value, result)
+    plot_points(title, input_data, result, calculated_value)
 
 
 if __name__ == '__main__':

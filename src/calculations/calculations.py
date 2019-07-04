@@ -1,43 +1,46 @@
-from src.tools.file_tools import obtain_input
 import random
 
 
-def gradient_descent(input_file):
-    input_data = obtain_input(input_file)
-    step_size = 0.01
-    thetas = []
-    for i in range(0, len(input_data[0])):
-        thetas.append(random.randint(0, 5))
-    print(thetas)
+def gradient_descent(input_data):
+    step_size = 0.001
+    thetas = initialize_thetas(input_data[0])
     samples = len(input_data)
-    for i in range(0, 10000):
-        new_thetas = []
+    max_iters = 1000000
+    iters = 0
+    max_error = 0.00000000000000000001
+    c_error = 0.1
+    new_thetas = []
+    while iters < max_iters and max_error < c_error:
         for _ in range(0, len(input_data[0])):
             new_thetas.append(0)
         for ind, training_example in enumerate(input_data):
             cost = obtain_cost(training_example, thetas)
             new_thetas = obtain_new_thetas(new_thetas, cost, training_example, samples)
-        new_thetas = update_thetas(new_thetas, thetas, step_size)
-        if check_converged(thetas, new_thetas):
-            print(i)
-            break
-        thetas = new_thetas
-    print(new_thetas)
-    return input_data, new_thetas
+        new_thetas, c_error = update_thetas(new_thetas, thetas, step_size)
+        thetas = list(new_thetas)
+        new_thetas = []
+        iters += 1
+    print("Iterations: {}".format(iters))
+    print("Result: {}".format(thetas))
+    return thetas
 
 
-def check_converged(thetas, prev_thetas):
-    for ind, theta in enumerate(thetas):
-        if not (theta - prev_thetas[ind]) ** 2 < 0.0000001:
-            return False
-    return True
+def initialize_thetas(input_example):
+    thetas = []
+    for i in range(0, len(input_example)):
+        thetas.append(random.randint(0, 5))
+    print("Initial thetas: {}".format(thetas))
+    return thetas
 
 
 def update_thetas(new_thetas, thetas, step_size):
     updated_thetas = []
+    total_error = 0
     for ind, theta in enumerate(thetas):
-        updated_thetas.append(theta - (step_size * new_thetas[ind]))
-    return updated_thetas
+        error = step_size * new_thetas[ind]
+        total_error += error
+        updated_thetas.append(theta - error)
+    return updated_thetas, abs(total_error)
 
 
 def obtain_new_thetas(new_thetas, cost, training_example, samples):
@@ -62,3 +65,21 @@ def obtain_hypothesis(training_example, thetas):
         else:
             total += training_example[ind - 1] * theta
     return total
+
+
+def obtain_output_from_input(desired_input, trained_model):
+    result = desired_input
+    total = trained_model[0]
+    for ind, val in enumerate(desired_input):
+        total += val * trained_model[ind + 1]
+    result.append(total)
+    print("Result from input: {}".format(result))
+    return result
+
+
+def obtain_random_input(input_data):
+    input_value = []
+    for _ in range(0, len(input_data)-1):
+        input_value.append(random.uniform(1.0, 4.0))
+    print("Values to analyze: {}".format(input_value))
+    return input_value

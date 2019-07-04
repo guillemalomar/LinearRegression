@@ -8,6 +8,6 @@ def obtain_input(input_file):
         for ind, z in enumerate(file):
             if ind == 0:
                 continue
-            z[:5] = map(int, z[0:5])
+            z[:5] = map(float, z[0:5])
             matrix.append(z)
     return matrix
