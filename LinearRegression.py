@@ -1,7 +1,4 @@
-import argparse
-import csv
 import logging
-import numpy as np
 import sys
 
 from src.calculations.gd import gradient_descent
@@ -9,8 +6,10 @@ from src.calculations.ne import normal_equation
 from src.calculations.gd import obtain_output_from_input
 from src.calculations.gd import obtain_random_input
 from src.tools.plot_tools import plot_points
+from src.tools.input_tools import obtain_gd_input, obtain_ne_input
 from src.messages import MESSAGES
 from src.settings import default_input_file
+from src.args import args_handler
 
 logging.basicConfig(
     level=logging.INFO,
@@ -19,55 +18,6 @@ logging.basicConfig(
         logging.FileHandler("{}.log".format("execution")),
         logging.StreamHandler()
     ])
-
-
-def args_handler(argv):
-
-    p = argparse.ArgumentParser(
-        description='Linear Regression',
-        formatter_class=argparse.RawTextHelpFormatter
-    )
-
-    p.add_argument('-f', '--file', action='store', type=str, default=None,
-                   help='CSV input file. If not specified it will use a default one.')
-
-    p.add_argument('-m', '--mode', action='store', type=str, default='GD',
-                   help='Application mode: GD (Gradient Descent)| NM (Normal Equation). Default: GD')
-
-    p.add_argument('-i', '--input', action='store', type=str, default=None,
-                   help='Input values to process. Between \'s. Example: \'2.2 3.3\'. Default: Random')
-
-    return p.parse_args(argv[1:])
-
-
-def obtain_gd_input(input_file):
-    with open(input_file) as csv_file:
-        file = csv.reader(csv_file, delimiter="\t")
-        matrix = []
-        for ind, z in enumerate(file):
-            if ind == 0:
-                continue
-            z[:5] = map(float, z[0:5])
-            matrix.append(z)
-    matrix = np.array([np.array(xi) for xi in matrix])
-    return matrix
-
-
-def obtain_ne_input(input_file):
-    with open(input_file) as csv_file:
-        file = csv.reader(csv_file, delimiter="\t")
-        matrix_x = []
-        matrix_y = []
-        for ind, z in enumerate(file):
-            if ind == 0:
-                continue
-            to_append_m1 = [1.0]
-            to_append_m1.extend(list(map(float, z[0:-1])))
-            matrix_x.append(to_append_m1)
-            matrix_y.append([float(z[-1])])
-    matrix_x = np.array([np.array(xi) for xi in matrix_x])
-    matrix_y = np.array([np.array(xi) for xi in matrix_y])
-    return matrix_x, matrix_y
 
 
 def _main(argv):
