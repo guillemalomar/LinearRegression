@@ -31,7 +31,7 @@ def args_handler(argv):
     p.add_argument('-f', '--file', action='store', type=str, default=None,
                    help='CSV input file. If not specified it will use a default one.')
 
-    p.add_argument('-m', '--mode', action='store', type=str, default='NE',
+    p.add_argument('-m', '--mode', action='store', type=str, default='GD',
                    help='Application mode: GD (Gradient Descent)| NM (Normal Equation). Default: GD')
 
     p.add_argument('-i', '--input', action='store', type=str, default=None,
@@ -95,8 +95,9 @@ def _main(argv):
         input_data = obtain_gd_input(title)
         result = gradient_descent(input_data)
     else:
-        input_data, matrix_y = obtain_ne_input(title)
-        result = normal_equation(input_data, matrix_y)
+        input_data = obtain_gd_input(title)
+        matrix_x, matrix_y = obtain_ne_input(title)
+        result = normal_equation(matrix_x, matrix_y)
 
     if args.input:
         try:
@@ -111,6 +112,7 @@ def _main(argv):
 
     calculated_value = obtain_output_from_input(input_value, result)
     logging.info(MESSAGES["Input_result"].format(calculated_value))
+
     plot_points(title, input_data, result, calculated_value)
 
 
