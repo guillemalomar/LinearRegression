@@ -1,6 +1,6 @@
-import logging
 import sys
 
+from src.log_tools import *
 from src.calculations.gd import gradient_descent
 from src.calculations.ne import normal_equation
 from src.calculations.gd import obtain_output_from_input
@@ -10,14 +10,6 @@ from src.tools.input_tools import obtain_gd_input, obtain_ne_input
 from src.messages import MESSAGES
 from src.settings import default_input_file
 from src.args import args_handler
-
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s [%(threadName)-12.12s] [%(levelname)-5.5s]  %(message)s",
-    handlers=[
-        logging.FileHandler("{}.log".format("execution")),
-        logging.StreamHandler()
-    ])
 
 
 def _main(argv):
