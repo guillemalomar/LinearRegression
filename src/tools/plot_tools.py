@@ -1,6 +1,8 @@
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 
+from src.settings import default_output_folder
+
 
 def plot_points(title, training_data, found_result, calculated_value):
     if len(training_data[0]) == 2:
@@ -47,4 +49,4 @@ def plot_points(title, training_data, found_result, calculated_value):
 
     plt.legend()
 
-    plt.savefig("output/{}_output.png".format(title.split('/')[1].split('.')[0]))
+    plt.savefig("{}/{}_output.png".format(default_output_folder, title.split('/')[1].split('.')[0]))

@@ -1,4 +1,5 @@
 import logging
+import numpy as np
 import random
 
 from src.settings import step_size, max_iters, max_error
@@ -31,6 +32,7 @@ def initialize_thetas(input_example):
     thetas = []
     for i in range(0, len(input_example)):
         thetas.append(random.randint(0, 5))
+    thetas = np.array(thetas)
     return thetas
 
 
@@ -41,6 +43,7 @@ def update_thetas(new_thetas, thetas):
         error = step_size * new_thetas[ind]
         total_error += error
         updated_thetas.append(theta - error)
+    updated_thetas = np.array(updated_thetas)
     return updated_thetas, abs(total_error)
 
 
