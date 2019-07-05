@@ -68,9 +68,9 @@ Once the execution has finished, the resulting images will be stored in _output/
 
 [logo2]: output/example_2Db_output.png "Output of the execution using a 2D training set"
 
-![alt text][logo2]
+![alt text][logo3]
 
-[logo2]: output/example_3Db_output.png "Output of the execution using a 3D training set"
+[logo3]: output/example_3Db_output.png "Output of the execution using a 3D training set"
 
 The names of the images follow the next syntax:
 
