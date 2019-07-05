@@ -1,6 +1,6 @@
-# Gradient Descent
+# Linear Regression
 
-*    Title: Gradient Descent    
+*    Title: Linear Regression
 *    Author: Guillem Alomar
 *    Initial release: June 4th, 2019                     
 *    Code version: 0.1                         
@@ -24,7 +24,9 @@
 
 ### Explanation
 
-This project consists in a Gradient Descent implementation in python3.
+This application consists in a Linear Regression implementation in python3.
+
+It can be calculated by Gradient Descent or with the Normal Equation.
 
 ## Using the application
 
@@ -46,23 +48,29 @@ $ python3 GradientDescent.py
 ### Additional Parameters
 
 ```
-usage: GradientDescent.py [-h] [-f FILE] [-i INPUT]
+-> % python LinearRegression.py -h
+usage: LinearRegression.py [-h] [-f FILE] [-m MODE] [-i INPUT]
 
-Gradient Descent
+Linear Regression
 
 optional arguments:
-  -h, --help               show this help message and exit
-  -f FILE, --file FILE     CSV input file. If not specified it will use a default one.
-  -i INPUT, --input INPUT  Input values to process. Between 's. Example: '2.2 3.3'
+  -h, --help                show this help message and exit
+  -f FILE, --file FILE      CSV input file. If not specified it will use a default one.
+  -m MODE, --mode MODE      Application mode: GD (Gradient Descent)| NM (Normal Equation). Default: GD
+  -i INPUT, --input INPUT   Input values to process. Between 's. Example: '2.2 3.3'. Default: Random
  ```
  
  ## The output
  
-Once the execution has finished, the resulting images will be stored in _output/_. These images should look similar to this:
- 
+Once the execution has finished, the resulting images will be stored in _output/_. These images should look similar to the following ones:
+
 ![alt text][logo2]
 
-[logo2]: output/example_3Db_output.png "Application Architecture"
+[logo2]: output/example_2Db_output.png "Output of the execution using a 2D training set"
+
+![alt text][logo2]
+
+[logo2]: output/example_3Db_output.png "Output of the execution using a 3D training set"
 
 The names of the images follow the next syntax:
 

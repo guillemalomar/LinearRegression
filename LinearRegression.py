@@ -16,7 +16,6 @@ logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(threadName)-12.12s] [%(levelname)-5.5s]  %(message)s",
     handlers=[
-        # logging.FileHandler("{0}/{1}.log".format("src", "execution")),
         logging.FileHandler("{}.log".format("execution")),
         logging.StreamHandler()
     ])
@@ -25,7 +24,7 @@ logging.basicConfig(
 def args_handler(argv):
 
     p = argparse.ArgumentParser(
-        description='Gradient Descent',
+        description='Linear Regression',
         formatter_class=argparse.RawTextHelpFormatter
     )
 
@@ -65,7 +64,7 @@ def obtain_ne_input(input_file):
             to_append_m1 = [1.0]
             to_append_m1.extend(list(map(float, z[0:-1])))
             matrix_x.append(to_append_m1)
-            matrix_y.append([z[-1]])
+            matrix_y.append([float(z[-1])])
     matrix_x = np.array([np.array(xi) for xi in matrix_x])
     matrix_y = np.array([np.array(xi) for xi in matrix_y])
     return matrix_x, matrix_y
@@ -95,7 +94,6 @@ def _main(argv):
     else:
         mode = 'GD'
 
-    mode = 'NE'
     if mode == 'GD':
         input_data = obtain_gd_input(title)
         result = gradient_descent(input_data)

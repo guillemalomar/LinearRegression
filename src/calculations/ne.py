@@ -6,12 +6,12 @@ from src.messages import MESSAGES
 
 
 def normal_equation(matrix_x, matrix_y):
-    thetas = []
     x_transposed = transpose_matrix(matrix_x)
     m_to_invert = multiply_matrixes(matrix_x, matrix_x)
     m_inverted = np.linalg.inv(m_to_invert)
     x_calcs = multiply_matrixes(m_inverted, x_transposed)
     thetas = multiply_matrixes(x_calcs, matrix_y)
+    logging.info(MESSAGES["Final_thetas"].format(thetas))
     return thetas
 
 
