@@ -7,10 +7,10 @@ from src.messages import MESSAGES
 
 def normal_equation(matrix_x, matrix_y):
     x_transposed = transpose_matrix(matrix_x)
-    m_to_invert = multiply_matrixes(matrix_x, matrix_x)
+    m_to_invert = multiply_matrixes(matrix_x.T, matrix_x.T)
     m_inverted = np.linalg.inv(m_to_invert)
-    x_calcs = multiply_matrixes(m_inverted, x_transposed)
-    thetas = multiply_matrixes(x_calcs, matrix_y)
+    x_calcs = multiply_matrixes(m_inverted.T, x_transposed.T)
+    thetas = np.array([x[0] for x in multiply_matrixes(x_calcs, matrix_y.T)])
     logging.info(MESSAGES["Final_thetas"].format(thetas))
     return thetas
 
@@ -21,8 +21,6 @@ def transpose_matrix(m):
 
 def multiply_matrixes(m1, m2):
     res = []
-    m1 = m1.T
-    m2 = m2.T
     for ind1, l1 in enumerate(m1):
         row = []
         for ind2, l2 in enumerate(m2):

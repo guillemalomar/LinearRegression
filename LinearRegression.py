@@ -31,7 +31,7 @@ def args_handler(argv):
     p.add_argument('-f', '--file', action='store', type=str, default=None,
                    help='CSV input file. If not specified it will use a default one.')
 
-    p.add_argument('-m', '--mode', action='store', type=str, default=None,
+    p.add_argument('-m', '--mode', action='store', type=str, default='NE',
                    help='Application mode: GD (Gradient Descent)| NM (Normal Equation). Default: GD')
 
     p.add_argument('-i', '--input', action='store', type=str, default=None,
@@ -86,13 +86,10 @@ def _main(argv):
     else:
         title = default_input_file
 
-    if args.mode:
-        mode = args.mode
-        if mode not in ['GD', 'NE']:
-            logging.error(MESSAGES["Wrong_mode"])
-            sys.exit()
-    else:
-        mode = 'GD'
+    mode = args.mode
+    if mode not in ['GD', 'NE']:
+        logging.error(MESSAGES["Wrong_mode"])
+        sys.exit()
 
     if mode == 'GD':
         input_data = obtain_gd_input(title)
