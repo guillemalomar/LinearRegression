@@ -2,7 +2,7 @@ import logging
 import numpy as np
 import random
 
-from src.settings import step_size, max_iters, max_error
+from src.settings import step_size, max_iterations, max_error
 from src.messages import MESSAGES
 
 
@@ -10,10 +10,10 @@ def gradient_descent(input_data):
     thetas = initialize_thetas(input_data[0])
     logging.info(MESSAGES["Initial_thetas"].format(thetas))
     samples = len(input_data)
-    iters = 0
+    iterations = 0
     c_error = 0.1
     new_thetas = []
-    while iters < max_iters and max_error < c_error:
+    while iterations < max_iterations and max_error < c_error:
         for _ in range(0, len(input_data[0])):
             new_thetas.append(0)
         for ind, training_example in enumerate(input_data):
@@ -22,8 +22,8 @@ def gradient_descent(input_data):
         new_thetas, c_error = update_thetas(new_thetas, thetas)
         thetas = list(new_thetas)
         new_thetas = []
-        iters += 1
-    logging.info(MESSAGES["Iterations"].format(iters))
+        iterations += 1
+    logging.info(MESSAGES["Iterations"].format(iterations))
     logging.info(MESSAGES["Final_thetas"].format(thetas))
     return thetas
 
