@@ -42,7 +42,7 @@ You should also add your training set csv to the _input_ folder.
 
 This is done by typing the following command:
 ```
-$ python3 GradientDescent.py
+$ python3 LinearRegression.py
 ```
 
 ### Additional Parameters
@@ -78,4 +78,4 @@ The names of the images follow the next syntax:
 $inputname_output.png
 ```
 
-Logs can be found in _src/execution.log_ 
+Logs can be found both in the execution terminal and in _src/execution.log_ 
